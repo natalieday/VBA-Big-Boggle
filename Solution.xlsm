@@ -1,0 +1,199 @@
+Sub BigBoggle()
+
+Dim cube(1 To 25) As Variant
+
+cube(1) = "AFIRSY"
+cube(2) = "ADENNN"
+cube(3) = "AEEEEM"
+cube(4) = "AAAFRS"
+cube(5) = "AEGMNN"
+cube(6) = "AAEEEE"
+cube(7) = "AEEGMU"
+cube(8) = "AAFIRS"
+cube(9) = "BJKQXZ"
+cube(10) = "CCENST"
+cube(11) = "CEILPT"
+cube(12) = "CEIILT"
+cube(13) = "CEIPST"
+cube(14) = "DHLNOR"
+cube(15) = "DHLNOR"
+cube(16) = "DDHNOT"
+cube(17) = "DHHLOR"
+cube(18) = "ENSSSU"
+cube(19) = "EMOTTT"
+cube(20) = "EIIITT"
+cube(21) = "FIPRSY"
+cube(22) = "GORRVW"
+cube(23) = "IPRRRY"
+cube(24) = "NOOTUW"
+cube(25) = "OOOTTU"
+
+
+
+' Choose random letter from cube
+    Dim boggle(1 To 5, 1 To 5) As String
+    Dim i As Integer, j As Integer
+    Dim x As Integer
+    x = 1
+    ' Loop through rows
+    For i = 1 To 5
+        ' Loop through columns
+        For j = 1 To 5
+            ' Increment counter and assign value to array element
+            
+            boggle(i, j) = GetRandomLetter(cube(x))
+            x = x + 1
+        Next j
+    Next i
+    
+    ' Print the filled array to the Immediate Window
+    For i = 1 To 5
+        For j = 1 To 5
+            Debug.Print boggle(i, j);
+        Next j
+        Debug.Print  ' Move to the next line after each row
+    Next i
+
+
+
+
+' Put random cube on grid
+
+' Define a collection to store the numbers
+Dim numberCollection As New collection
+
+' Initialize the collection with the numbers
+For i = 1 To 25
+  numberCollection.Add i
+Next i
+
+Dim y As Integer
+Dim count As Integer
+
+' Example usage with the function (assuming boggle function exists)
+For count = 1 To 25 Step 1
+  For i = 1 To 5 Step 1
+    For j = 1 To 5 Step 1
+      y = GetRandomNumberFromCollection(numberCollection) ' Use the modified function
+      Range("game").Cells(y).Value = boggle(i, j)
+
+      ' Remove the used number from the collection
+      ' Find and remove the index that contains the value y
+      Dim index As Integer ' Declare the index variable
+      For index = numberCollection.count To 1 Step -1
+        If numberCollection(index) = y Then
+          numberCollection.Remove index
+          Exit For ' Exit after removing to avoid unnecessary iterations
+        End If
+      Next index
+    If numberCollection.count = 0 Then
+        ' Handle empty collection case (e.g., raise error or return specific value)
+        Exit For
+    End If
+
+    Next j
+        If numberCollection.count = 0 Then
+        ' Handle empty collection case (e.g., raise error or return specific value)
+        Exit For
+    End If
+  Next i
+      If numberCollection.count = 0 Then
+        ' Handle empty collection case (e.g., raise error or return specific value)
+        Exit For
+    End If
+Next count
+
+        
+
+End Sub
+Function GetRandomLetter(variable As Variant) As String
+    Randomize
+    
+    ' Generate a random index between 1 and 6
+    Dim randomIndex As Integer
+    randomIndex = Int((Len(variable) * Rnd) + 1)
+    
+    ' Return the letter at the random index
+    GetRandomLetter = Mid(variable, randomIndex, 1)
+End Function
+
+
+
+
+Function GetRandomNumberFromCollection(collection As Object) As Variant
+
+    ' Seed the random number generator (optional, recommended for consistent randomness)
+    Randomize
+
+    ' Check if the collection is empty
+    If collection.count = 0 Then
+        ' Handle empty collection case (e.g., raise error or return specific value)
+        Exit Function
+    End If
+
+    ' Get a random key from the collection
+    Dim randomKey As Variant
+    randomKey = (Int(Rnd * collection.count) + 1)
+
+    ' Return the element associated with the random key
+    GetRandomNumberFromCollection = collection(randomKey)
+
+End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sub runButton(control As IRibbonControl)
+  ' this procedures allows the BigBoggle procedure to be invoked from the "assignment" ribbon
+  ' do not modify this procedure
+  Application.Run (control.ID)
+End Sub
