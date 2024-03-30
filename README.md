@@ -1,2 +1,8 @@
 # VBA-Big-Boggle
 Write a program to play Big Boggle.  A game produced by Hasbro.
+
+Big Boggle is a word-discovery game originally produced by Parker Brothers (Google "big boggle rules" for details of game play). In play, the user is presented with a randomly-ordered 5 by 5 grid of cubes--each with one face showing. The goal is to find as many words (subject to the game rules) as possible in a three minute round. Full instructions are online at: http://www.hasbro.com/common/instruct/BigBoggle.PDF You can see a video of how Boggle is played at http://www.youtube.com/watch?v=ntZVkJEArEg. This video is for the regular Boggle (16 letter cubes) however, you assignment is for Big Boggle (25 letter cubes).
+
+In this code, I use Excel to simulate the part of the game that selects the letters that will show for a given round. There are 25 letter cubes and one face from each must show in each game. Although the game has had various distributions of letters over the years, I use the original cube structure, which follows:
+
+So, each of the 25 cubes has 6 letters, the first has the letters A, F, I, R, S, and Y on the cube. On any given round, exactly one of the faces of each cube will be showing. There is only one Z and one X and they happen to be on the same cube, so no round can have both a Z and an X in play simultaneously, which means that he word "zax" can never be formed. In my Excel workbook, I write a procedure that completes the assignment by making use of the 5 by 5 grid on the sheet named "Boggle". There is exactly one letter from each "cube" showing in each cell of the grid. The positioning of each cube within the grid is random. 
